@@ -45,6 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="MakeImagesUsingGimp.cs" />
     <Compile Include="GetImagesLocation.cs" />
     <Compile Include="GetGimpExeLocation.cs" />
     <Compile Include="Form1.cs">
@@ -67,6 +69,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="batch_CreateURealmsTileImages.py" />
+    <None Include="batch_CreateURealmsTileImages.pyc" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -79,6 +83,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Image_Assets\BlankTileTemplate.png" />
+    <Content Include="Image_Assets\blinded.png" />
+    <Content Include="Image_Assets\burning.png" />
+    <Content Include="Image_Assets\charmed.png" />
+    <Content Include="Image_Assets\defeated.png" />
+    <Content Include="Image_Assets\frozen.png" />
+    <Content Include="Image_Assets\poisoned.png" />
+    <Content Include="Image_Assets\silenced.png" />
+    <Content Include="Image_Assets\stunned.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
