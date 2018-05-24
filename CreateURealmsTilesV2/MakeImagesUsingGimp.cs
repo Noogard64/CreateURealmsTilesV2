@@ -6,49 +6,43 @@ namespace CreateURealmsTilesV2
 {
     class MakeImagesUsingGimp
     {
-        static public void MakeImages(string gimpLocation, string[] files)
+        static public void MakeImages(string gimpLocation, string file)
         {
 
-            foreach(string file in files)
+            try
             {
-                try
+                string args = "gimp --as-new --verbose --no-interface -idf --batch-interpreter=python-fu-eval -b \"import sys; sys.path =['.'] + sys.path; import batch_CreateURealmsTileImages; batch_CreateURealmsTileImages.run('" + file + "')\" -b \"pdb.gimp_quit(1)\"";
+                var startInfo = new ProcessStartInfo
                 {
-                    string args = "gimp --as-new --verbose --no-interface -idf --batch-interpreter=python-fu-eval -b \"import sys; sys.path =['.'] + sys.path; import batch_CreateURealmsTileImages; batch_CreateURealmsTileImages.run('" + file + "')\" -b \"pdb.gimp_quit(1)\"";
-                    var startInfo = new ProcessStartInfo
-                    {
-                        WorkingDirectory = Environment.CurrentDirectory,
-                        WindowStyle = ProcessWindowStyle.Normal,
-                        FileName = gimpLocation,
-                        RedirectStandardInput = true,
-                        UseShellExecute = false,
-                        Verb = "runas",
-                        Arguments = args
-                    };
+                    WorkingDirectory = Environment.CurrentDirectory,
+                    WindowStyle = ProcessWindowStyle.Normal,
+                    FileName = gimpLocation,
+                    RedirectStandardInput = true,
+                    UseShellExecute = false,
+                    Verb = "runas",
+                    Arguments = args
+                };
 
-                    Console.WriteLine("#################################");
+                Console.WriteLine("#################################");
 
-                    Console.WriteLine("Executing the file below:");
-                    Console.WriteLine(gimpLocation);
+                Console.WriteLine("Reproduce with follow command line input:");
+                Console.WriteLine("cd " + Environment.CurrentDirectory.ToString());
+                Console.WriteLine("\"" + gimpLocation  + "\" "+ args);
 
-                    Console.WriteLine("Using the arguments below:");
-                    Console.WriteLine(args);
+                var process = Process.Start(startInfo);
 
-                    Console.WriteLine("From the directory below:");
-                    Console.WriteLine(Environment.CurrentDirectory.ToString());
+                process.WaitForExit();
+            }
+            catch (Exception e)
+            {
 
-                    Console.WriteLine("#################################");
+                //TODO Finish textBox_OutputLog_Update function in Form1.cs 
+                //Form1.textBox_OutputLog_Update(e.ToString());
 
-                    Process.Start(startInfo);
-                }
-                catch (Exception e)
-                {
+                MessageBox.Show(e.ToString());
 
-                    //TODO Finish textBox_OutputLog_Update function in Form1.cs 
-                    //Form1.textBox_OutputLog_Update(e.ToString());
+                //Logging.ReportToOutput(e.ToString());
 
-                    MessageBox.Show(e.ToString());
-
-                }
             }
         }
     }

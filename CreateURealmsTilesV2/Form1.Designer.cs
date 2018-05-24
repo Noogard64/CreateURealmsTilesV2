@@ -33,23 +33,25 @@ namespace CreateURealmsTilesV2
             this.label_gimpLocation = new System.Windows.Forms.Label();
             this.button_createImages = new System.Windows.Forms.Button();
             this.buttonCreateTiles = new System.Windows.Forms.Button();
-            this.textBox_OutputLog = new System.Windows.Forms.TextBox();
-            this.label_OutputLog = new System.Windows.Forms.Label();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.button_OpenTempFolder = new System.Windows.Forms.Button();
+            this.progressBar_CreateImages = new System.Windows.Forms.ProgressBar();
+            this.progressBar_CreateTiles = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
             // textBox_gimpLocation
             // 
-            this.textBox_gimpLocation.Location = new System.Drawing.Point(139, 60);
+            this.textBox_gimpLocation.Location = new System.Drawing.Point(129, 60);
             this.textBox_gimpLocation.Name = "textBox_gimpLocation";
             this.textBox_gimpLocation.ReadOnly = true;
-            this.textBox_gimpLocation.Size = new System.Drawing.Size(268, 20);
+            this.textBox_gimpLocation.Size = new System.Drawing.Size(233, 20);
             this.textBox_gimpLocation.TabIndex = 0;
             this.textBox_gimpLocation.Text = "C:\\Program Files\\GIMP 2\\bin\\gimp-2.8.exe";
             // 
             // label_gimpLocation
             // 
             this.label_gimpLocation.AutoSize = true;
-            this.label_gimpLocation.Location = new System.Drawing.Point(136, 33);
+            this.label_gimpLocation.Location = new System.Drawing.Point(126, 34);
             this.label_gimpLocation.Name = "label_gimpLocation";
             this.label_gimpLocation.Size = new System.Drawing.Size(78, 13);
             this.label_gimpLocation.TabIndex = 1;
@@ -57,9 +59,10 @@ namespace CreateURealmsTilesV2
             // 
             // button_createImages
             // 
-            this.button_createImages.Location = new System.Drawing.Point(139, 99);
+            this.button_createImages.BackColor = System.Drawing.SystemColors.Control;
+            this.button_createImages.Location = new System.Drawing.Point(129, 96);
             this.button_createImages.Name = "button_createImages";
-            this.button_createImages.Size = new System.Drawing.Size(117, 58);
+            this.button_createImages.Size = new System.Drawing.Size(93, 56);
             this.button_createImages.TabIndex = 4;
             this.button_createImages.Text = "Create Images";
             this.button_createImages.UseVisualStyleBackColor = true;
@@ -67,44 +70,55 @@ namespace CreateURealmsTilesV2
             // 
             // buttonCreateTiles
             // 
-            this.buttonCreateTiles.Location = new System.Drawing.Point(279, 99);
+            this.buttonCreateTiles.Location = new System.Drawing.Point(129, 158);
             this.buttonCreateTiles.Name = "buttonCreateTiles";
-            this.buttonCreateTiles.Size = new System.Drawing.Size(117, 58);
+            this.buttonCreateTiles.Size = new System.Drawing.Size(93, 54);
             this.buttonCreateTiles.TabIndex = 6;
             this.buttonCreateTiles.Text = "Create Tiles";
             this.buttonCreateTiles.UseVisualStyleBackColor = true;
+            this.buttonCreateTiles.Click += new System.EventHandler(this.buttonCreateTiles_Click);
             // 
-            // textBox_OutputLog
+            // button_OpenTempFolder
             // 
-            this.textBox_OutputLog.Location = new System.Drawing.Point(139, 205);
-            this.textBox_OutputLog.Multiline = true;
-            this.textBox_OutputLog.Name = "textBox_OutputLog";
-            this.textBox_OutputLog.ReadOnly = true;
-            this.textBox_OutputLog.Size = new System.Drawing.Size(268, 52);
-            this.textBox_OutputLog.TabIndex = 7;
+            this.button_OpenTempFolder.Location = new System.Drawing.Point(193, 221);
+            this.button_OpenTempFolder.Name = "button_OpenTempFolder";
+            this.button_OpenTempFolder.Size = new System.Drawing.Size(117, 40);
+            this.button_OpenTempFolder.TabIndex = 7;
+            this.button_OpenTempFolder.Text = "Open Temp Folder";
+            this.button_OpenTempFolder.UseVisualStyleBackColor = true;
+            this.button_OpenTempFolder.Click += new System.EventHandler(this.button_OpenTempFolder_Click);
             // 
-            // label_OutputLog
+            // progressBar_CreateImages
             // 
-            this.label_OutputLog.AutoSize = true;
-            this.label_OutputLog.Location = new System.Drawing.Point(227, 171);
-            this.label_OutputLog.Name = "label_OutputLog";
-            this.label_OutputLog.Size = new System.Drawing.Size(64, 13);
-            this.label_OutputLog.TabIndex = 8;
-            this.label_OutputLog.Text = "Error Output";
+            this.progressBar_CreateImages.Location = new System.Drawing.Point(228, 113);
+            this.progressBar_CreateImages.Name = "progressBar_CreateImages";
+            this.progressBar_CreateImages.Size = new System.Drawing.Size(134, 25);
+            this.progressBar_CreateImages.TabIndex = 8;
+            this.progressBar_CreateImages.Value = 0;
+            // 
+            // progressBar_CreateTiles
+            // 
+            this.progressBar_CreateTiles.Location = new System.Drawing.Point(228, 171);
+            this.progressBar_CreateTiles.Name = "progressBar_CreateTiles";
+            this.progressBar_CreateTiles.Size = new System.Drawing.Size(134, 24);
+            this.progressBar_CreateTiles.TabIndex = 9;
+            this.progressBar_CreateTiles.Value = 0;
+
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(557, 311);
-            this.Controls.Add(this.label_OutputLog);
-            this.Controls.Add(this.textBox_OutputLog);
+            this.ClientSize = new System.Drawing.Size(493, 303);
+            this.Controls.Add(this.progressBar_CreateTiles);
+            this.Controls.Add(this.progressBar_CreateImages);
+            this.Controls.Add(this.button_OpenTempFolder);
             this.Controls.Add(this.buttonCreateTiles);
             this.Controls.Add(this.button_createImages);
             this.Controls.Add(this.label_gimpLocation);
             this.Controls.Add(this.textBox_gimpLocation);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Create URealms Tiles";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -118,8 +132,10 @@ namespace CreateURealmsTilesV2
         private System.Windows.Forms.Label label_gimpLocation;
         private System.Windows.Forms.Button button_createImages;
         private System.Windows.Forms.Button buttonCreateTiles;
-        private System.Windows.Forms.TextBox textBox_OutputLog;
-        private System.Windows.Forms.Label label_OutputLog;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.Button button_OpenTempFolder;
+        public System.Windows.Forms.ProgressBar progressBar_CreateImages;
+        private System.Windows.Forms.ProgressBar progressBar_CreateTiles;
     }
 }
 
