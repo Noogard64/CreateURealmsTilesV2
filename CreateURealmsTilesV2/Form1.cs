@@ -14,17 +14,20 @@ namespace CreateURealmsTilesV2
         {
 
             string gimpLocation = textBox_gimpLocation.Text;
-            string[] images = textBox_imageLocation.Text.Split(',');
 
+            string[] images = GetImagesLocation.ImagesLocation();
             MakeImagesUsingGimp.MakeImages(gimpLocation, images);
+
         }
 
+
+        /*
         void button_getImage_Click(object sender, EventArgs e)
         {
             string[] results = GetImagesLocation.ImagesLocation();
             textBox_imageLocation.Text = String.Join(", ", results);
         }
-
+        */
 
         //TODO - Update the textBox_OutputLog.Text value with error messages.
         /*
