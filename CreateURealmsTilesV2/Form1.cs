@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.Linq;
 using System.Diagnostics;
+using System.IO;
 
 namespace CreateURealmsTilesV2
 {
@@ -19,35 +19,32 @@ namespace CreateURealmsTilesV2
         {
             string gimpLocation = textBox_gimpLocation.Text;
             images = GetImagesLocation.ImagesLocation();
-
-            int numberOfImages = images.Count();
-
-            var increments = 100 /numberOfImages;
+            textBox_OutputLog.Text = "Starting images creation...";
 
             foreach (string image in images)
             {
-                
                 MakeImagesUsingGimp.MakeImages(gimpLocation, image);
-                progressBar_CreateImages.Value = progressBar_CreateImages.Value + increments;
+                textBox_OutputLog.Text = textBox_OutputLog.Text + "\r\n" + "[" + Path.GetFileNameWithoutExtension(image) + "] finished."; 
             }
-
-            progressBar_CreateImages.Value = 100;
-
         }
 
         private void buttonCreateTiles_Click(object sender, EventArgs e)
         {
-            int numberOfImages = images.Count();
 
-            var increments = 100 / numberOfImages;
+            var imageCount = images.Length;
+            if (imageCount == 0)
+            {
+                images = GetImagesLocation.ImagesLocation();
+            }
 
+            textBox_OutputLog.Text = "Starting Tile creation...";
             foreach (string image in images)
             {
 
                 MakeJSONFile.MakeJSONFileProcess(image);
-                progressBar_CreateTiles.Value = progressBar_CreateTiles.Value + increments;
+                textBox_OutputLog.Text = textBox_OutputLog.Text + "\r\n" + "[" + Path.GetFileNameWithoutExtension(image) + "] finished.";
             }
-            progressBar_CreateTiles.Value = 100;
+
         }
 
         private void button_OpenTempFolder_Click(object sender, EventArgs e)
@@ -55,7 +52,6 @@ namespace CreateURealmsTilesV2
             
             Process.Start(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp\CreateUrealmsTiles");
         }
-
 
     }   
 }
