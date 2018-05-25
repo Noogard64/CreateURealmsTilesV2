@@ -30,11 +30,15 @@ namespace CreateURealmsTilesV2
             else
             {
                 textBox_OutputLog.Text = "Starting images creation...";
+                MakeImagesUsingGimp.MakeBulkImages(gimpLocation, images);
+                /*
                 foreach (string image in images)
                 {
                     MakeImagesUsingGimp.MakeImages(gimpLocation, image);
                     textBox_OutputLog.Text = textBox_OutputLog.Text + "\r\n" + "[" + Path.GetFileNameWithoutExtension(image) + "] finished.";
                 }
+                */
+                textBox_OutputLog.Text = "Finished!";
             }
         }
 
