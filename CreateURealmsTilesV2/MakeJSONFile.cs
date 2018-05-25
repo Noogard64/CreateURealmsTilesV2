@@ -11,8 +11,7 @@ namespace CreateURealmsTilesV2
     class MakeJSONFile
     {
 
-        public static string ImageTempFolder = @"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp\CreateUrealmsTiles";
-
+        public static string ImageTempFolder = Form1.TempFolder;
         public static void MakeJSONFileProcess(string image)
         {
 

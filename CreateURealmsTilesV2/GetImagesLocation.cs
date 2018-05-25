@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CreateURealmsTilesV2
 {
     class GetImagesLocation
     {
-        public static string[] ImagesLocation()
+        public static List<string> ImagesLocation()
         {
             
             OpenFileDialog GetImage = new OpenFileDialog
@@ -20,7 +22,7 @@ namespace CreateURealmsTilesV2
             };
             GetImage.ShowDialog();
 
-            return GetImage.FileNames;
+            return GetImage.FileNames.OfType<string>().ToList<string>();
 
         }
     }
