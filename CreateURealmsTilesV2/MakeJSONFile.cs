@@ -4,6 +4,7 @@ using System.IO;
 using System.Net;
 using System.Collections.Specialized;
 using Newtonsoft.Json.Linq;
+using System.Windows.Forms;
 
 namespace CreateURealmsTilesV2
 {
@@ -126,7 +127,7 @@ namespace CreateURealmsTilesV2
             string jsonResults = UploadImage(file);
             if (jsonResults == null)
             {
-                Console.WriteLine("jsonResults were null.");
+                MessageBox.Show("jsonResults were null. for ["+ file + "]");
             }
 
             string url = getURLFromJson(jsonResults);

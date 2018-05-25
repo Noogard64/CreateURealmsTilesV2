@@ -2,6 +2,8 @@
 using System.Windows.Forms;
 using System.Linq;
 using System.Diagnostics;
+using System.IO;
+using System.Collections.Generic;
 
 namespace CreateURealmsTilesV2
 {
@@ -12,13 +14,15 @@ namespace CreateURealmsTilesV2
             InitializeComponent();
         }
 
-        public string[] images;
+        List<string> images;
         public string errorLog;
+        public static string TempFolder = @"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp\CreateUrealmsTiles";
 
         private void button_CreateImages_Click(object sender, EventArgs e)
         {
             string gimpLocation = textBox_gimpLocation.Text;
-            images = GetImagesLocation.ImagesLocation();
+            
+            images = new List<string>(GetImagesLocation.ImagesLocation());
 
             int numberOfImages = images.Count();
 
@@ -28,7 +32,23 @@ namespace CreateURealmsTilesV2
             {
                 
                 MakeImagesUsingGimp.MakeImages(gimpLocation, image);
-                progressBar_CreateImages.Value = progressBar_CreateImages.Value + increments;
+
+                string imageFileNameNoExt = Path.GetFileNameWithoutExtension(image);
+
+                string imageTempFolder = TempFolder + @"\" + imageFileNameNoExt;
+
+                string[] allImages = Directory.GetFiles(imageTempFolder);
+
+                if (allImages.Count() != 10)
+                {
+                    MessageBox.Show("Failed to make images for [" + image + ")");
+                }
+                else
+                {
+                    progressBar_CreateImages.Value = progressBar_CreateImages.Value + increments;
+                }
+
+                
             }
 
             progressBar_CreateImages.Value = 100;
