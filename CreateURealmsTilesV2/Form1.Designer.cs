@@ -62,7 +62,7 @@ namespace CreateURealmsTilesV2
             // button_createImages
             // 
             this.button_createImages.BackColor = System.Drawing.SystemColors.Control;
-            this.button_createImages.Location = new System.Drawing.Point(66, 96);
+            this.button_createImages.Location = new System.Drawing.Point(87, 96);
             this.button_createImages.Name = "button_createImages";
             this.button_createImages.Size = new System.Drawing.Size(93, 56);
             this.button_createImages.TabIndex = 4;
@@ -72,7 +72,7 @@ namespace CreateURealmsTilesV2
             // 
             // buttonCreateTiles
             // 
-            this.buttonCreateTiles.Location = new System.Drawing.Point(66, 158);
+            this.buttonCreateTiles.Location = new System.Drawing.Point(206, 97);
             this.buttonCreateTiles.Name = "buttonCreateTiles";
             this.buttonCreateTiles.Size = new System.Drawing.Size(93, 54);
             this.buttonCreateTiles.TabIndex = 6;
@@ -82,9 +82,9 @@ namespace CreateURealmsTilesV2
             // 
             // button_OpenTempFolder
             // 
-            this.button_OpenTempFolder.Location = new System.Drawing.Point(178, 237);
+            this.button_OpenTempFolder.Location = new System.Drawing.Point(327, 96);
             this.button_OpenTempFolder.Name = "button_OpenTempFolder";
-            this.button_OpenTempFolder.Size = new System.Drawing.Size(117, 40);
+            this.button_OpenTempFolder.Size = new System.Drawing.Size(93, 54);
             this.button_OpenTempFolder.TabIndex = 7;
             this.button_OpenTempFolder.Text = "Open Temp Folder";
             this.button_OpenTempFolder.UseVisualStyleBackColor = true;
@@ -92,14 +92,13 @@ namespace CreateURealmsTilesV2
             // 
             // textBox_OutputLog
             // 
-            this.textBox_OutputLog.Location = new System.Drawing.Point(193, 96);
+            this.textBox_OutputLog.Location = new System.Drawing.Point(87, 175);
             this.textBox_OutputLog.Multiline = true;
             this.textBox_OutputLog.Name = "textBox_OutputLog";
             this.textBox_OutputLog.ReadOnly = true;
-            this.textBox_OutputLog.Size = new System.Drawing.Size(233, 116);
+            this.textBox_OutputLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox_OutputLog.Size = new System.Drawing.Size(333, 116);
             this.textBox_OutputLog.TabIndex = 8;
-            this.textBox_OutputLog.ScrollBars = ScrollBars.Vertical;
-
             // 
             // Form1
             // 

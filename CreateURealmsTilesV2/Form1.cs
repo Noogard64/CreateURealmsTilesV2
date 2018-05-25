@@ -58,7 +58,7 @@ namespace CreateURealmsTilesV2
                 foreach (string image in images)
                 {
                     int i = images.IndexOf(image) + 1;
-                    textBox_OutputLog.Text = textBox_OutputLog.Text + "\r\n" + "Starting image [" + i + "] of [" + imageCount + "].";
+                    textBox_OutputLog.Text = textBox_OutputLog.Text + "\r\n" + "Starting tile [" + i + "] of [" + imageCount + "].";
 
                     MakeJSONFile.MakeJSONFileProcess(image);
 

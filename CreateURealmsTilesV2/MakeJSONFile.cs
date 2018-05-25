@@ -18,8 +18,6 @@ namespace CreateURealmsTilesV2
             //declaring some vars
             string url;
 
-            
-
             //Get tile images from Temp directory
             var tileImages = GetTileImages(image);
 
@@ -29,13 +27,13 @@ namespace CreateURealmsTilesV2
             foreach (string tileImage in tileImages)
             {
                 //Upload image to get URL
-                url = UploadImageToImgur(image);
+                url = UploadImageToImgur(tileImage);
 
                 //populate json file with url
-                PopulateJSONFile(url, image, jsonFile);
+                PopulateJSONFile(url, tileImage, jsonFile);
             }
 
-            string imageName = Path.GetFileNameWithoutExtension(image);
+            //string imageName = Path.GetFileNameWithoutExtension(image);
 
         }
 
@@ -48,7 +46,7 @@ namespace CreateURealmsTilesV2
             string tileImageDirectory = ImageTempFolder + @"\" + imageFileNameNoExt;
 
             //Getting tile images
-            string[] tileImages = Directory.GetFiles(tileImageDirectory);
+            string[] tileImages = Directory.GetFiles(tileImageDirectory,"*.png");
 
             return tileImages;
         }
@@ -166,7 +164,7 @@ namespace CreateURealmsTilesV2
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
+                MessageBox.Show(e.ToString());
             }
             return null;
 
