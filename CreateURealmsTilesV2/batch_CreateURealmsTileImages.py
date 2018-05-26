@@ -193,7 +193,12 @@ def CreateStatusEffectImage(status,filePath,File_Base,outputFolder,outputFileNam
 		layer = pdb.gimp_image_merge_down(image_New, layer_Circle, 1)
 
 		#Saves base new image
-		File_Base = outputFolder + "\\" + outputFileName + "_" + status + ".png"
+		
+		#Updated May 26, 2018
+		#File_Base = outputFolder + "\\" + outputFileName + "_" + status + ".png"
+		
+		File_Base = outputFolder + "\\" + status + ".png"
+		
 		pdb.file_png_save_defaults(image_New, image_New.active_layer, File_Base, File_Base)
 	except Exception as e:
 		WriteToLogFileAndConsole(e.args[0])

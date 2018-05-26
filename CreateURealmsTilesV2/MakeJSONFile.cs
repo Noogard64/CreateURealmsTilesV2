@@ -5,6 +5,7 @@ using System.Net;
 using System.Collections.Specialized;
 using Newtonsoft.Json.Linq;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace CreateURealmsTilesV2
 {
@@ -24,13 +25,29 @@ namespace CreateURealmsTilesV2
             //Creating JSON file
             var jsonFile = CreateJSONFileFromTemplate(image);
 
+            List<string> urls = new List<string>();
+
             foreach (string tileImage in tileImages)
             {
+                if (tileImage == )
+                {
+
+                }
                 //Upload image to get URL
                 url = UploadImageToImgur(tileImage);
 
                 //populate json file with url
-                PopulateJSONFile(url, tileImage, jsonFile);
+                PopulateJSONFile(url, tileImage, jsonFile, image);
+
+                urls.Add(url);
+            }
+
+            if(urls.Count == 9)
+            {
+                foreach(string tileImage in tileImages)
+                {
+                    File.Delete(tileImage);
+                }
             }
 
             //string imageName = Path.GetFileNameWithoutExtension(image);
@@ -71,49 +88,67 @@ namespace CreateURealmsTilesV2
         }
 
         //Populate JSON file with URLs.
-        public static void PopulateJSONFile(string url, string image, string jsonFile)
+        public static void PopulateJSONFile(string url, string image, string jsonFile, string baseImage)
         {
-
+            //MessageBox.Show(image);
+            string fileContent = File.ReadAllText(jsonFile);
             string find;
-            if (image.Contains("Blind"))
+            string updatedFileContent;
+
+            string baseImageFileNameNoExt = Path.GetFileNameWithoutExtension(baseImage);
+
+            if (image == "Blind.png")
             {
                 find = "insert blind url here";
+                updatedFileContent = fileContent.Replace(find, url); 
             }
-            else if (image.Contains("Burning"))
+            else if (image == "Burning.png")
             {
                 find = "insert burning url here";
+                updatedFileContent = fileContent.Replace(find, url);
             }
-            else if (image.Contains("Charmed"))
+            else if (image == "Charmed.png")
             {
                 find = "insert charmed url here";
+                updatedFileContent = fileContent.Replace(find, url);
             }
-            else if (image.Contains("Defeated"))
+            else if (image == "Defeated.png")
             {
                 find = "insert defeated url here";
+                updatedFileContent = fileContent.Replace(find, url);
             }
-            else if (image.Contains("Frozen"))
+            else if (image == "Frozen.png")
             {
                 find = "insert frozen url here";
+                updatedFileContent = fileContent.Replace(find, url);
             }
-            else if (image.Contains("Poisoned"))
+            else if (image == "Poisoned.png")
             {
                 find = "insert poisoned url here";
+                updatedFileContent = fileContent.Replace(find, url);
             }
-            else if (image.Contains("Silenced"))
+            else if (image == "Silenced.png")
             {
                 find = "insert silenced url here";
+                updatedFileContent = fileContent.Replace(find, url); 
             }
-            else if (image.Contains("Stunned"))
+            else if (image == "Stunned.png")
             {
                 find = "insert stunned url here";
+                updatedFileContent = fileContent.Replace(find, url);
+            }
+            else if (image == "saved_BaseTile.png")
+            {
+                find = "insert base url here";
+                updatedFileContent = fileContent.Replace(find, url);
             }
             else
             {
-                find = "insert base url here";
+                updatedFileContent = fileContent;
             }
 
-            string fileContent = File.ReadAllText(jsonFile);
-            string updatedFileContent = fileContent.Replace(find, url);
+            //string fileContent = File.ReadAllText(jsonFile);
+            //string updatedFileContent = fileContent.Replace(find, url);
             File.WriteAllText(jsonFile, updatedFileContent);
 
         }
