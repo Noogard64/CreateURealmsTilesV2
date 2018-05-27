@@ -29,24 +29,34 @@ namespace CreateURealmsTilesV2
 
             foreach (string tileImage in tileImages)
             {
-                if (tileImage == )
+
+                string tileImageNoPath = Path.GetFileName(tileImage);
+                if ((tileImageNoPath == "Blind.png") || (tileImageNoPath == "Burning.png") || (tileImageNoPath == "Charmed.png") || (tileImageNoPath == "Defeated.png") || (tileImageNoPath == "Frozen.png") || (tileImageNoPath == "Poisoned.png") || (tileImageNoPath == "Silenced.png") || (tileImageNoPath == "Stunned.png") || (tileImageNoPath == "saved_BaseTile.png"))
                 {
+                    //Upload image to get URL
+                    url = UploadImageToImgur(tileImage);
 
+                    //populate json file with url
+                    PopulateJSONFile(url, tileImage, jsonFile, image);
+
+                    urls.Add(url);
                 }
-                //Upload image to get URL
-                url = UploadImageToImgur(tileImage);
-
-                //populate json file with url
-                PopulateJSONFile(url, tileImage, jsonFile, image);
-
-                urls.Add(url);
+                else
+                {
+                    //Do Nothing
+                }
+                
             }
 
             if(urls.Count == 9)
             {
                 foreach(string tileImage in tileImages)
                 {
-                    File.Delete(tileImage);
+                    string tileImageNoPath = Path.GetFileName(tileImage);
+                    if ((tileImageNoPath == "Blind.png") || (tileImageNoPath == "Burning.png") || (tileImageNoPath == "Charmed.png") || (tileImageNoPath == "Defeated.png") || (tileImageNoPath == "Frozen.png") || (tileImageNoPath == "Poisoned.png") || (tileImageNoPath == "Silenced.png") || (tileImageNoPath == "Stunned.png") || (tileImageNoPath == "saved_BaseTile.png"))
+                    {
+                        File.Delete(tileImage);
+                    }
                 }
             }
 
