@@ -13,7 +13,7 @@ namespace CreateURealmsTilesV2
     {
 
         public static string ImageTempFolder = Form1.TempFolder;
-        public static void MakeJSONFileProcess(string image)
+        public static bool MakeJSONFileProcess(string image)
         {
 
             //declaring some vars
@@ -34,12 +34,17 @@ namespace CreateURealmsTilesV2
                 if ((tileImageNoPath == "Blind.png") || (tileImageNoPath == "Burning.png") || (tileImageNoPath == "Charmed.png") || (tileImageNoPath == "Defeated.png") || (tileImageNoPath == "Frozen.png") || (tileImageNoPath == "Poisoned.png") || (tileImageNoPath == "Silenced.png") || (tileImageNoPath == "Stunned.png") || (tileImageNoPath == "saved_BaseTile.png"))
                 {
                     //Upload image to get URL
-                    url = UploadImageToImgur(tileImage);
-
-                    //populate json file with url
-                    PopulateJSONFile(url, tileImage, jsonFile, image);
-
-                    urls.Add(url);
+                    url = GetImageURL(tileImage);
+                    if (url == null)
+                    {
+                        //Fail
+                        break;
+                    }
+                    else
+                    {
+                        PopulateJSONFile(url, tileImage, jsonFile, image);
+                        urls.Add(url);
+                    }
                 }
                 else
                 {
@@ -56,8 +61,17 @@ namespace CreateURealmsTilesV2
                     if ((tileImageNoPath == "Blind.png") || (tileImageNoPath == "Burning.png") || (tileImageNoPath == "Charmed.png") || (tileImageNoPath == "Defeated.png") || (tileImageNoPath == "Frozen.png") || (tileImageNoPath == "Poisoned.png") || (tileImageNoPath == "Silenced.png") || (tileImageNoPath == "Stunned.png") || (tileImageNoPath == "saved_BaseTile.png"))
                     {
                         File.Delete(tileImage);
+                        
                     }
                 }
+
+                return true;
+            }
+
+            else
+            {
+                //Fail
+                return false;
             }
 
             //string imageName = Path.GetFileNameWithoutExtension(image);
@@ -106,6 +120,8 @@ namespace CreateURealmsTilesV2
             string updatedFileContent;
 
             string baseImageFileNameNoExt = Path.GetFileNameWithoutExtension(baseImage);
+
+            image = Path.GetFileName(image);
 
             if (image == "Blind.png")
             {
@@ -163,6 +179,7 @@ namespace CreateURealmsTilesV2
 
         }
 
+        /*
         static public string UploadImageToImgur(string file)
         {
 
@@ -176,7 +193,7 @@ namespace CreateURealmsTilesV2
             return url;
 
         }
-
+        */
 
         static public string getURLFromJson(string jsonResults)
         {
@@ -186,6 +203,7 @@ namespace CreateURealmsTilesV2
             return url;
         }
 
+        /*
         static public string UploadImage(string filename)
         {
             try
@@ -213,6 +231,41 @@ namespace CreateURealmsTilesV2
             }
             return null;
 
+        }
+        */
+
+        public static string GetImageURL(string filename)
+        {
+            try
+            {
+                var file = File.ReadAllBytes(filename);
+
+                using (var w = new WebClient())
+                {
+                    var values = new NameValueCollection
+                    {
+                        {"image", Convert.ToBase64String(file)},
+                        {"type", "base64"}
+                    };
+                    //client.Headers.Add("Authorization", "BEARER " + accessToken);
+                    w.Headers.Add("Authorization", "Client-ID c927064c3cd35e5");
+                    var response = w.UploadValues("https://api.imgur.com/3/image", values);
+
+                    string jsonResults = Encoding.UTF8.GetString(response);
+
+                    dynamic stuff = JObject.Parse(jsonResults);
+
+                    string url = stuff.data.link;
+                    return url;
+
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+                return null;
+            }
+            
         }
 
 

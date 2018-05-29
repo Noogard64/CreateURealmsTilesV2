@@ -64,10 +64,19 @@ namespace CreateURealmsTilesV2
                     int i = images.IndexOf(image) + 1;
                     textBox_OutputLog.Text = textBox_OutputLog.Text + "\r\n" + "Starting tile [" + i + "] of [" + imageCount + "].";
 
-                    MakeJSONFile.MakeJSONFileProcess(image);
+                    if (MakeJSONFile.MakeJSONFileProcess(image))
+                    {
+                        textBox_OutputLog.Text = textBox_OutputLog.Text + "\r\n" + "[" + Path.GetFileNameWithoutExtension(image) + "] Completed.";
+                    }
+                    else
+                    {
+                        textBox_OutputLog.Text = textBox_OutputLog.Text + "\r\n" + "[" + Path.GetFileNameWithoutExtension(image) + "] Failed.";
+                    }
 
-                    textBox_OutputLog.Text = textBox_OutputLog.Text + "\r\n" + "[" + Path.GetFileNameWithoutExtension(image) + "] finished.";
+
                 }
+
+                images.Clear();
             }
 
         }
