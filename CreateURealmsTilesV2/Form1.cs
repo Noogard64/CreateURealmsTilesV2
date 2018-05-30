@@ -17,10 +17,12 @@ namespace CreateURealmsTilesV2
         List<string> images = new List<string>();
         public string errorLog;
         public static string TempFolder = @"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp\CreateUrealmsTiles";
+        public static string gimpLocation;
 
-        private void button_CreateImages_Click(object sender, EventArgs e)
+        private void buttonCreateTiles_Click(object sender, EventArgs e)
         {
-            string gimpLocation = textBox_gimpLocation.Text;
+
+            gimpLocation = textBox_gimpLocation.Text;
             images = GetImagesLocation.ImagesLocation();
 
             if (images.Count == 0)
@@ -30,53 +32,21 @@ namespace CreateURealmsTilesV2
             else
             {
                 textBox_OutputLog.Text = "Starting images creation...";
-                MakeImagesUsingGimp.MakeBulkImages(gimpLocation, images);
-                /*
+
                 foreach (string image in images)
                 {
-                    MakeImagesUsingGimp.MakeImages(gimpLocation, image);
-                    textBox_OutputLog.Text = textBox_OutputLog.Text + "\r\n" + "[" + Path.GetFileNameWithoutExtension(image) + "] finished.";
-                }
-                */
-                textBox_OutputLog.Text = "Finished!";
-            }
-        }
+                    textBox_OutputLog.Text = updateLogField("[" + image + "] started!");
 
-        private void buttonCreateTiles_Click(object sender, EventArgs e)
-        {
-
-            int imageCount = images.Count;
-            if (imageCount == 0)
-            {
-                images = GetImagesLocation.ImagesLocation();
-                imageCount = images.Count;
-            }
-
-            if (images.Count == 0)
-            {
-                textBox_OutputLog.Text = "No images selected.";
-            }
-            else
-            {
-                textBox_OutputLog.Text = "Starting Tile creation for [" + imageCount + "] images...";
-                foreach (string image in images)
-                {
-                    int i = images.IndexOf(image) + 1;
-                    textBox_OutputLog.Text = textBox_OutputLog.Text + "\r\n" + "Starting tile [" + i + "] of [" + imageCount + "].";
-
-                    if (MakeJSONFile.MakeJSONFileProcess(image))
+                    bool results = URealms.CreateTiles(image);
+                    if (results)
                     {
-                        textBox_OutputLog.Text = textBox_OutputLog.Text + "\r\n" + "[" + Path.GetFileNameWithoutExtension(image) + "] Completed.";
+                        textBox_OutputLog.Text = updateLogField("[" + Path.GetFileNameWithoutExtension(image) + "] finished!");
                     }
                     else
                     {
-                        textBox_OutputLog.Text = textBox_OutputLog.Text + "\r\n" + "[" + Path.GetFileNameWithoutExtension(image) + "] Failed.";
+                        textBox_OutputLog.Text = updateLogField("[" + Path.GetFileNameWithoutExtension(image) + "] failed!");
                     }
-
-
                 }
-
-                images.Clear();
             }
 
         }
@@ -86,5 +56,10 @@ namespace CreateURealmsTilesV2
             Process.Start(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp\CreateUrealmsTiles");
         }
 
+
+        private string updateLogField(string logItem)
+        {
+            return textBox_OutputLog.Text + "\r\n" + logItem;
+        }
     }   
 }

@@ -33,7 +33,6 @@ namespace CreateURealmsTilesV2
             this.components = new System.ComponentModel.Container();
             this.textBox_gimpLocation = new System.Windows.Forms.TextBox();
             this.label_gimpLocation = new System.Windows.Forms.Label();
-            this.button_createImages = new System.Windows.Forms.Button();
             this.buttonCreateTiles = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.button_OpenTempFolder = new System.Windows.Forms.Button();
@@ -43,7 +42,7 @@ namespace CreateURealmsTilesV2
             // 
             // textBox_gimpLocation
             // 
-            this.textBox_gimpLocation.Location = new System.Drawing.Point(129, 60);
+            this.textBox_gimpLocation.Location = new System.Drawing.Point(66, 48);
             this.textBox_gimpLocation.Name = "textBox_gimpLocation";
             this.textBox_gimpLocation.ReadOnly = true;
             this.textBox_gimpLocation.Size = new System.Drawing.Size(233, 20);
@@ -53,26 +52,15 @@ namespace CreateURealmsTilesV2
             // label_gimpLocation
             // 
             this.label_gimpLocation.AutoSize = true;
-            this.label_gimpLocation.Location = new System.Drawing.Point(126, 34);
+            this.label_gimpLocation.Location = new System.Drawing.Point(134, 22);
             this.label_gimpLocation.Name = "label_gimpLocation";
             this.label_gimpLocation.Size = new System.Drawing.Size(78, 13);
             this.label_gimpLocation.TabIndex = 1;
             this.label_gimpLocation.Text = "GIMP Location";
             // 
-            // button_createImages
-            // 
-            this.button_createImages.BackColor = System.Drawing.SystemColors.Control;
-            this.button_createImages.Location = new System.Drawing.Point(87, 96);
-            this.button_createImages.Name = "button_createImages";
-            this.button_createImages.Size = new System.Drawing.Size(93, 56);
-            this.button_createImages.TabIndex = 4;
-            this.button_createImages.Text = "Create Images";
-            this.button_createImages.UseVisualStyleBackColor = true;
-            this.button_createImages.Click += new System.EventHandler(this.button_CreateImages_Click);
-            // 
             // buttonCreateTiles
             // 
-            this.buttonCreateTiles.Location = new System.Drawing.Point(206, 97);
+            this.buttonCreateTiles.Location = new System.Drawing.Point(66, 86);
             this.buttonCreateTiles.Name = "buttonCreateTiles";
             this.buttonCreateTiles.Size = new System.Drawing.Size(93, 54);
             this.buttonCreateTiles.TabIndex = 6;
@@ -82,7 +70,7 @@ namespace CreateURealmsTilesV2
             // 
             // button_OpenTempFolder
             // 
-            this.button_OpenTempFolder.Location = new System.Drawing.Point(327, 96);
+            this.button_OpenTempFolder.Location = new System.Drawing.Point(206, 86);
             this.button_OpenTempFolder.Name = "button_OpenTempFolder";
             this.button_OpenTempFolder.Size = new System.Drawing.Size(93, 54);
             this.button_OpenTempFolder.TabIndex = 7;
@@ -92,7 +80,7 @@ namespace CreateURealmsTilesV2
             // 
             // textBox_OutputLog
             // 
-            this.textBox_OutputLog.Location = new System.Drawing.Point(87, 175);
+            this.textBox_OutputLog.Location = new System.Drawing.Point(12, 175);
             this.textBox_OutputLog.Multiline = true;
             this.textBox_OutputLog.Name = "textBox_OutputLog";
             this.textBox_OutputLog.ReadOnly = true;
@@ -104,11 +92,10 @@ namespace CreateURealmsTilesV2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(493, 303);
+            this.ClientSize = new System.Drawing.Size(373, 303);
             this.Controls.Add(this.textBox_OutputLog);
             this.Controls.Add(this.button_OpenTempFolder);
             this.Controls.Add(this.buttonCreateTiles);
-            this.Controls.Add(this.button_createImages);
             this.Controls.Add(this.label_gimpLocation);
             this.Controls.Add(this.textBox_gimpLocation);
             this.Name = "Form1";
@@ -124,7 +111,6 @@ namespace CreateURealmsTilesV2
 
         private System.Windows.Forms.TextBox textBox_gimpLocation;
         private System.Windows.Forms.Label label_gimpLocation;
-        private System.Windows.Forms.Button button_createImages;
         private System.Windows.Forms.Button buttonCreateTiles;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Button button_OpenTempFolder;
