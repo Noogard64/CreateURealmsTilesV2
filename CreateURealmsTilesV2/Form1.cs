@@ -35,7 +35,7 @@ namespace CreateURealmsTilesV2
 
                 foreach (string image in images)
                 {
-                    textBox_OutputLog.Text = updateLogField("[" + image + "] started!");
+                    textBox_OutputLog.Text = updateLogField("[" + Path.GetFileNameWithoutExtension(image) + "] started!");
 
                     bool results = URealms.CreateTiles(image);
                     if (results)
@@ -45,6 +45,7 @@ namespace CreateURealmsTilesV2
                     else
                     {
                         textBox_OutputLog.Text = updateLogField("[" + Path.GetFileNameWithoutExtension(image) + "] failed!");
+                        break;
                     }
                 }
             }
